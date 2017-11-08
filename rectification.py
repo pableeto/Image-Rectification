@@ -524,9 +524,11 @@ def rectify_image(image, clip_factor=6, algorithm='independent',
 
 
 if __name__ == '__main__':
-    import sys
-    image_name = sys.argv[-1]
-    image = io.imread(image_name)
-    print("Rectifying {}".format(image_name))
-    save_name = '.'.join(image_name.split('.')[:-1]) + '_warped.png'
-    io.imsave(save_name, rectify_image(image_name, 4, algorithm='independent'))
+    import sys,glob
+    folder_name = sys.argv[-1]
+    filelist = glob.glob(folder_name + r'/*.png') + glob.glob(folder_name + r'/*.jpg')
+    for image_name in filelist:
+        image = io.imread(image_name)
+        print("Rectifying {}".format(image_name))
+        save_name = '.'.join(image_name.split('.')[:-1]) + '_warped.png'
+        io.imsave(save_name, rectify_image(image_name, 4, algorithm='independent'))
